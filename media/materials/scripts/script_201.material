@@ -1,0 +1,15 @@
+material Aruco/Aruco201
+{
+  receive_shadows on
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture ../texture/aruco_201.png
+      }
+    }
+  }
+
+}

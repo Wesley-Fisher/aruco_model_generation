@@ -1,0 +1,11 @@
+<launch>
+  <arg name="aruco_type" default="100mm"/>
+  <arg name="id" default="0"/>
+  <param name="aruco_description" textfile="$(find aruco_model_generation)/urdf/aruco_$(arg aruco_type)/aruco_$(arg aruco_type)_$(arg id).urdf"/>
+    <!-->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+    -->
+    
+    <node name="rviz" pkg="rviz" type="rviz" args="$(find aruco_model_generation)/launch/test_view.rviz -f /base_link" required="true" />
+</launch>

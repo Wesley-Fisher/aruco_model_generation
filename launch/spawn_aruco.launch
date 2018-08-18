@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="aruco_type"/>
+  <arg name="id"/>
+  <param name="aruco_description" textfile="$(find aruco_model_generation)/urdf/aruco_$(arg aruco_type)/aruco_$(arg aruco_type)_$(arg id).urdf"/>
+
+  <node name="spawner" pkg="gazebo_ros" type="spawn_model" args="-urdf -param aruco_description -z 0.01 -model aruco_$(arg id)" respawn="false" output="screen"/>
+</launch>
