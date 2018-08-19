@@ -3,7 +3,7 @@ A repo for creating urdf models of aruco markers for use in Gazebo.
 
 This package comes with 250 markers, spaning id values from 0 to 249, in both 100mm and 500mm squares.
 
-Aruco markers are generated via OpenCV [(See this page)](https://docs.opencv.org/3.1.0/d5/dae/tutorial_aruco_detection.html). This package can create 250 aruco markers in different sizes.
+Aruco markers are generated via OpenCV 3.1.0 [(See this page)](https://docs.opencv.org/3.1.0/d5/dae/tutorial_aruco_detection.html). This package can create 250 aruco markers in different sizes.
 
 Note: testing has yet to be done on non-development systems.
 
