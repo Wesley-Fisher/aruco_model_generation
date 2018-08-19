@@ -23,8 +23,9 @@ This will create the /urdf/aruco_200mm folder, and populate it with urdf files.
 ## Referencing URDF Files
 The urdf files can be referenced as:
 ```
-{aruco_model_generation}/urdf/aruco_{size; see above}mm_{id; 0 to 249}.urdf
+{aruco_model_generation}/urdf/aruco_{size in mm; see above}mm_{id; 0 to 249}.urdf
 ```
+Note: the ids are not currently zero-padded. Ie: id 2 is '2', and not '002'.
 
 ## Generating New Aruco Markers
 The aruco markers themselves (the .png files) were originally generated in Ubuntu14.04/Python3.4. If needed, markers can be re-generated.
