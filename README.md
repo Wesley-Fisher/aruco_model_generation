@@ -10,6 +10,8 @@ Note: testing has yet to be done on non-development systems.
 ## Spawning Models
 See the ```launch/spawn_aruco.launch``` file
 
+Note: the ```/scripts/source_paths.sh``` files may need to be sourced before the urdf files can be properly loaded.
+
 ## Creating Differently-Sized URDF Files
 To create a new set of urdf files in different sizes, run the /scripts/generate_urdf_custom_size_mm.sh file, with the size in mm as an arugment. For example, to create square markers 200mm in side length, run:
 ```
@@ -17,8 +19,6 @@ source ./scripts/generate_urdf_custom_size_mm.sh 200
 ```
 
 This will create the /urdf/aruco_200mm folder, and populate it with urdf files.
-
-Note: the ```/scripts/source_paths.sh``` files may need to be sourced before the urdf files can be properly loaded.
 
 ## Referencing URDF Files
 The urdf files can be referenced as:
