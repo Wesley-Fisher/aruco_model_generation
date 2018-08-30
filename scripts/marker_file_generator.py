@@ -27,6 +27,32 @@ def create_aruco_marker(id, ar_dict):
     border_size = 1
     return ar.drawMarker(ar_dict, id, px_size, None, border_size)
 
+def process_base_image(img):
+    a = flip_image(img)
+    b = draw_x(a)
+    c = draw_y(b)
+    return c
+
+def draw_x(img):
+    size = img.shape[0]
+    half_width = 1
+    
+    for y in range(int(size/2 - half_width), int(size/2+half_width)):
+        img[0][y] = 255
+
+    return img
+
+def draw_y(img):
+    size = img.shape[0]
+    offset = 3
+    img[int(size/2)-offset][0] = 255
+    img[int(size/2)+offset][0] = 255
+    return img
+
+def flip_image(img):
+    out = cv2.flip(img, 1)
+    return out
+
 def write_material_script(id, script_dir):
     filename = "script_" + str(id) + ".material"
     with open(script_dir + "/" + filename, 'w+') as f:
@@ -56,6 +82,7 @@ for i in range(N_preknown):
     print("Generating %s of %s..." % (i, N_preknown))
     base = create_aruco_marker(i, aruco_dict)
     #exp = create_expanded_image(base)
+    img = process_base_image(base)
     save_file_name = media_dir + "/aruco_" + str(i) + ".png"
-    cv2.imwrite(save_file_name, base)
+    cv2.imwrite(save_file_name, img)
     write_material_script(i, material_script_dir)
