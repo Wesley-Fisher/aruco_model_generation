@@ -47,7 +47,7 @@ def write_material_script(id, script_dir):
         f.write("\n}")
 
 N_preknown = 250
-aruco_dict = ar.Dictionary_get(ar.DICT_6X6_250)
+aruco_dict = ar.Dictionary_get(ar.DICT_ARUCO_ORIGINAL)
 script_dir = os.path.dirname(os.path.realpath(__file__))
 pkg_dir = script_dir + "/.."
 media_dir = pkg_dir + "/media/materials/texture"
