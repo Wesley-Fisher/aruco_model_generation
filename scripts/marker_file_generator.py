@@ -6,22 +6,6 @@ import os
 import numpy as np
 
 
-def create_expanded_image(src):
-    expand_factor = 2
-    src_size = src.shape[0]
-    exp_size = src_size * expand_factor
-
-    new = np.zeros((exp_size, exp_size, 1), np.uint8)
-    print(new.shape)
-
-    copy_offset = int(src_size/2.0)
-    for x in range(src_size):
-        for y in range(src_size):
-
-            new[x+copy_offset][y+copy_offset] = src[x][y]
-
-    return new
-
 def create_aruco_marker(id, ar_dict):
     px_size = 100
     border_size = 1
@@ -29,30 +13,21 @@ def create_aruco_marker(id, ar_dict):
 
 def process_base_image(img):
     a = flip_image(img)
-    b = draw_x(a)
-    c = draw_y(b)
-    return c
+    b = draw_labels(a)
+    return b
 
-def draw_x(img):
-    cv2.putText(img, 'X', (10,10), cv2.FONT_HERSHEY_SIMPLEX, 0.1, (0, 255, 0), 2, cv2.LINE_AA)
-
+def draw_labels(img):
     size = img.shape[0]
-    half_width = 1
-    
-    for y in range(int(size/2 - half_width), int(size/2+half_width)):
-        img[0][y] = 128
-        img[1][y] = 128
 
+    text_shade = 70
+    text_scale = 0.8
+    text_height_est = int(15 * text_scale)
+
+    cv2.putText(img, 'X ^', ((size/2),text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), 1, cv2.LINE_AA)
+    cv2.putText(img, 'Y', (2,(size/2)), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), 1, cv2.LINE_AA)
+    cv2.putText(img, '<', (2,(size/2)+text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), 1, cv2.LINE_AA)
     return img
 
-def draw_y(img):
-    size = img.shape[0]
-    offset = 3
-    for y in range(0, 2):
-        img[int(size/2)-offset][y] = 128
-        img[int(size/2)+offset][y] = 128
-    
-    return img
 
 
 def flip_image(img):
@@ -87,8 +62,9 @@ material_script_dir = pkg_dir + "/media/materials/scripts"
 for i in range(N_preknown):
     print("Generating %s of %s..." % (i, N_preknown))
     base = create_aruco_marker(i, aruco_dict)
-    #exp = create_expanded_image(base)
-    img = process_base_image(base)
+    scale=4.0
+    exp = cv2.resize(base, (0,0), fx=scale, fy=scale) 
+    img = process_base_image(exp)
     save_file_name = media_dir + "/aruco_" + str(i) + ".png"
     cv2.imwrite(save_file_name, img)
     write_material_script(i, material_script_dir)
