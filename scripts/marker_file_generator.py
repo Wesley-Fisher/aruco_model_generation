@@ -34,20 +34,26 @@ def process_base_image(img):
     return c
 
 def draw_x(img):
+    cv2.putText(img, 'X', (10,10), cv2.FONT_HERSHEY_SIMPLEX, 0.1, (0, 255, 0), 2, cv2.LINE_AA)
+
     size = img.shape[0]
     half_width = 1
     
     for y in range(int(size/2 - half_width), int(size/2+half_width)):
-        img[0][y] = 255
+        img[0][y] = 128
+        img[1][y] = 128
 
     return img
 
 def draw_y(img):
     size = img.shape[0]
     offset = 3
-    img[int(size/2)-offset][0] = 255
-    img[int(size/2)+offset][0] = 255
+    for y in range(0, 2):
+        img[int(size/2)-offset][y] = 128
+        img[int(size/2)+offset][y] = 128
+    
     return img
+
 
 def flip_image(img):
     out = cv2.flip(img, 1)
