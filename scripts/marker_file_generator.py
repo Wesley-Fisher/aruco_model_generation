@@ -11,21 +11,24 @@ def create_aruco_marker(id, ar_dict):
     border_size = 1
     return ar.drawMarker(ar_dict, id, px_size, None, border_size)
 
-def process_base_image(img):
+def process_base_image(img, id):
     a = flip_image(img)
-    b = draw_labels(a)
+    b = draw_labels(a, id)
     return b
 
-def draw_labels(img):
+def draw_labels(img, id):
     size = img.shape[0]
 
-    text_shade = 70
-    text_scale = 0.8
+    text_shade = 40
+    text_scale = 1.2
     text_height_est = int(15 * text_scale)
+    text_thick = 2
 
-    cv2.putText(img, 'X ^', ((size/2),text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), 1, cv2.LINE_AA)
-    cv2.putText(img, 'Y', (2,(size/2)), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), 1, cv2.LINE_AA)
-    cv2.putText(img, '<', (2,(size/2)+text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), 1, cv2.LINE_AA)
+    cv2.putText(img, 'X ^', ((size/2),text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), text_thick, cv2.LINE_AA)
+    cv2.putText(img, 'Y', (2,(size/2)), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), text_thick, cv2.LINE_AA)
+    cv2.putText(img, '<', (2,(size/2)+text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), text_thick, cv2.LINE_AA)
+
+    cv2.putText(img, 'ID: ' + str(id), (2,size-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), text_thick, cv2.LINE_AA)
     return img
 
 
@@ -64,7 +67,7 @@ for i in range(N_preknown):
     base = create_aruco_marker(i, aruco_dict)
     scale=4.0
     exp = cv2.resize(base, (0,0), fx=scale, fy=scale) 
-    img = process_base_image(exp)
+    img = process_base_image(exp, i)
     save_file_name = media_dir + "/aruco_" + str(i) + ".png"
     cv2.imwrite(save_file_name, img)
     write_material_script(i, material_script_dir)
