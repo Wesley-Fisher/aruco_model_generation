@@ -8,27 +8,37 @@ import numpy as np
 
 def create_aruco_marker(id, ar_dict):
     px_size = 100
-    border_size = 1
+    border_size = 2
     return ar.drawMarker(ar_dict, id, px_size, None, border_size)
 
 def process_base_image(img, id):
     a = flip_image(img)
-    b = draw_labels(a, id)
-    return b
+    b = cv2.cvtColor(a,cv2.COLOR_GRAY2RGB)
+    c = draw_labels(b, id)
+    return c
 
 def draw_labels(img, id):
     size = img.shape[0]
 
-    text_shade = 40
+    text_shade_main = 100
+    text_shade_other = 40
+    text_green = (text_shade_other, text_shade_main, text_shade_other)
+    text_red = (text_shade_other, text_shade_other, text_shade_main)
+    text_blue = (text_shade_main, text_shade_other, text_shade_other)
+    text_grey = (text_shade_other, text_shade_other, text_shade_other)
     text_scale = 1.2
-    text_height_est = int(15 * text_scale)
+    text_height_est = int(16 * text_scale)
     text_thick = 2
 
-    cv2.putText(img, 'X ^', ((size/2),text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), text_thick, cv2.LINE_AA)
-    cv2.putText(img, 'Y', (2,(size/2)), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), text_thick, cv2.LINE_AA)
-    cv2.putText(img, '<', (2,(size/2)+text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), text_thick, cv2.LINE_AA)
+    cv2.putText(img, '[A]X ^', ((size/2),text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_red, text_thick, cv2.LINE_AA)
+    
+    cv2.putText(img, '[A]Y', (2,(size/2)), cv2.FONT_HERSHEY_PLAIN, text_scale, text_green, text_thick, cv2.LINE_AA)
+    cv2.putText(img, '(R)Z', (2,(size/2)+text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_blue, text_thick, cv2.LINE_AA)
+    cv2.putText(img, '<', (2,(size/2)-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_grey, text_thick, cv2.LINE_AA)
 
-    cv2.putText(img, 'ID: ' + str(id), (2,size-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, (text_shade), text_thick, cv2.LINE_AA)
+    cv2.putText(img, '(R)X v', ((size/2),size-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_red, text_thick, cv2.LINE_AA)
+
+    cv2.putText(img, 'ID: ' + str(id), (2,size-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_grey, text_thick, cv2.LINE_AA)
     return img
 
 
