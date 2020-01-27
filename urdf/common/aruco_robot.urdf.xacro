@@ -1,9 +1,0 @@
-<?xml version="1.0" ?>
-<robot name="rviz_test_name" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:arg name="id"/>
-    <name>aruco_$(arg id)</name>
-    <xacro:arg name="size"/>
-
-    <xacro:include filename="$(find aruco_model_generation)/urdf/common/base_aruco_panel.urdf.xacro"/>
-    <xacro:aruco_panel width="$(arg size)" thickness="0.001" id="$(arg id)"/>
-</robot>
