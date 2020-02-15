@@ -46,13 +46,19 @@ def draw_labels(img, id):
     text_height_est = int(16 * text_scale)
     text_thick = 2
 
-    cv2.putText(img, '[A]X ^', ((size/2),text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_red, text_thick, cv2.LINE_AA)
-    
-    cv2.putText(img, '[A]Y', (2,(size/2)), cv2.FONT_HERSHEY_PLAIN, text_scale, text_green, text_thick, cv2.LINE_AA)
-    cv2.putText(img, '(R)Z', (2,(size/2)+text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_blue, text_thick, cv2.LINE_AA)
-    cv2.putText(img, '<', (2,(size/2)-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_grey, text_thick, cv2.LINE_AA)
+    text_y_pos_top = text_height_est
+    text_y_pos_bot = size-text_height_est
 
-    cv2.putText(img, '(R)X v', ((size/2),size-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_red, text_thick, cv2.LINE_AA)
+    cv2.putText(img, '[A]X v', ((size/2)+70,text_y_pos_bot), cv2.FONT_HERSHEY_PLAIN, text_scale, text_red, text_thick, cv2.LINE_AA)
+    
+    cv2.putText(img, '>', (size-text_height_est,(size/2)+text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_grey, text_thick, cv2.LINE_AA)
+    cv2.putText(img, '[A]Y', (size-3*text_height_est,(size/2)), cv2.FONT_HERSHEY_PLAIN, text_scale, text_green, text_thick, cv2.LINE_AA)
+    
+    
+    cv2.putText(img, '(R)Z', (size-3*text_height_est,(size/2)-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_blue, text_thick, cv2.LINE_AA)
+    #cv2.putText(img, '<', (2,(size/2)-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_grey, text_thick, cv2.LINE_AA)
+
+    cv2.putText(img, '(R)X ^', ((size/2),text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_red, text_thick, cv2.LINE_AA)
 
     cv2.putText(img, 'ID: ' + str(id) + ',  Size(mm): (    )', (20,size-text_height_est), cv2.FONT_HERSHEY_PLAIN, text_scale, text_grey, text_thick, cv2.LINE_AA)
     return img

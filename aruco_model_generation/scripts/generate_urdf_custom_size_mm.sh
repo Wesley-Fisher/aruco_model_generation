@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/bash
 
 if [ -n "$1" ]; then echo "Creating markers with size $1 mm"; else echo "Add size in mm as first argument"; return 0; fi
 
@@ -14,6 +14,5 @@ urdf_out_dir="$pkg_dir/urdf/aruco_$size""mm"
 for id in $(seq 0 249)
 do
     echo $id
-    sizem=`echo $size \\* $mm_to_m | bc`
-    rosrun xacro xacro --inorder -o "$urdf_out_dir/aruco_$size""mm_$id.urdf" "$urdf_common_dir/aruco_robot.urdf.xacro" size:=$sizem id:=$id
+    rosrun xacro xacro --inorder -o "$urdf_out_dir/aruco_$size""mm_$id.urdf" "$urdf_common_dir/aruco_robot.urdf.xacro" sizemm:=$size id:=$id
 done

@@ -25,7 +25,7 @@
             <name>Aruco/Aruco${id}</name>
         </script>
     </material>
-    <link name="base_link">
+    <link name="aruco_${id}_panel">
         <collision>
             <xacro:panel_box width="${width}" thickness="${thickness}"/>
         </collision>
@@ -44,7 +44,7 @@
             izz="0"/>
         </inertial>
     </link>
-    <gazebo reference="base_link">
+    <gazebo reference="aruco_${id}_panel">
         <material>Aruco/Aruco${id}</material>
     </gazebo>
 </xacro:macro>
